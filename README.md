@@ -36,7 +36,7 @@ Most YouTube downloaders produce files that fail on dedicated MP3 players and mi
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/tunesync-mp3.git
+git clone https://github.com/yeashaswi/tunesync-mp3.git
 cd tunesync-mp3
 ```
 
@@ -148,7 +148,7 @@ You can run TuneSync completely natively on your Android device without a PC:
    ```
 3. Clone and run:
    ```bash
-   git clone https://github.com/your-username/tunesync-mp3.git
+   git clone https://github.com/yeashaswi/tunesync-mp3.git
    cd tunesync-mp3
    pip install -r requirements.txt
    python app.py
