@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuneSync - MP3 Player Downloader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass { background: rgba(26, 27, 38, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-rose-500 selection:text-white">
+
+    <!-- Header -->
+    <header class="border-b border-slate-800/80 bg-slate-900/40 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 to-amber-500 flex items-center justify-center shadow-lg shadow-rose-500/20">
+                    <i class="fa-solid fa-music text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight tracking-tight">TuneSync MP3</h1>
+                    <p class="text-xs text-slate-400">MicroSD & MP3 Player Ready</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 text-xs">
+                <span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Ready
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto px-4 py-8 flex-1 w-full space-y-6">
+
+        <!-- Banner / Hero -->
+        <div class="text-center space-y-2 py-4">
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+                YouTube Music to MP3 Player
+            </h2>
+            <p class="text-slate-400 max-w-xl mx-auto text-sm sm:text-base">
+                Download playlists and tracks with clean titles, embedded JPEG album art, and ID3v2.3 tags — perfectly optimized for FAT32 / exFAT microSD cards.
+            </p>
+        </div>
+
+        <!-- Download Card -->
+        <div class="glass rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
+            
+            <!-- URL Input -->
+            <div class="space-y-2">
+                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                    YouTube or YouTube Music URL
+                </label>
+                <div class="relative flex items-center">
+                    <span class="absolute left-4 text-slate-400">
+                        <i class="fa-brands fa-youtube text-lg"></i>
+                    </span>
+                    <input type="url" id="urlInput" placeholder="https://music.youtube.com/playlist?list=..." 
+                        class="w-full pl-12 pr-4 py-3.5 bg-slate-900/90 border border-slate-700/80 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500 transition-all text-sm font-medium">
+                </div>
+            </div>
+
+            <!-- Settings Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                
+                <!-- Bitrate Selection -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                        Audio Quality
+                    </label>
+                    <select id="bitrateSelect" class="w-full px-4 py-3 bg-slate-900/90 border border-slate-700/80 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500 transition-all text-sm font-medium">
+                        <option value="192k" selected>192 kbps (Recommended - Balanced & 40% Smaller)</option>
+                        <option value="320k">320 kbps (Maximum MP3 Bitrate)</option>
+                        <option value="160k">160 kbps (Compact - 50% Space Savings)</option>
+                        <option value="128k">128 kbps (Ultra Light)</option>
+                    </select>
+                </div>
+
+                <!-- Folder Name -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                        Output Folder
+                    </label>
+                    <input type="text" id="folderInput" value="My Music" placeholder="Folder name"
+                        class="w-full px-4 py-3 bg-slate-900/90 border border-slate-700/80 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500 transition-all text-sm font-medium">
+                </div>
+            </div>
+
+            <!-- Features Checkboxes -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                <label class="flex items-center space-x-3 p-3 rounded-xl bg-slate-900/40 border border-slate-800 cursor-pointer hover:bg-slate-900/80 transition-colors">
+                    <input type="checkbox" id="cleanTitlesCheck" checked class="w-4 h-4 text-rose-500 rounded bg-slate-800 border-slate-600 focus:ring-rose-500">
+                    <div class="text-xs">
+                        <span class="font-semibold block text-slate-200">Clean Song Titles</span>
+                        <span class="text-slate-400">Strips video clutter like (Official Video)</span>
+                    </div>
+                </label>
+
+                <label class="flex items-center space-x-3 p-3 rounded-xl bg-slate-900/40 border border-slate-800 cursor-pointer hover:bg-slate-900/80 transition-colors">
+                    <input type="checkbox" id="embedArtCheck" checked class="w-4 h-4 text-rose-500 rounded bg-slate-800 border-slate-600 focus:ring-rose-500">
+                    <div class="text-xs">
+                        <span class="font-semibold block text-slate-200">Embed JPEG Cover Art</span>
+                        <span class="text-slate-400">Baseline JPEG + ID3v2.3 tags</span>
+                    </div>
+                </label>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="pt-2 flex flex-col sm:flex-row gap-3">
+                <button id="downloadBtn" onclick="startDownload()" 
+                    class="flex-1 py-4 px-6 rounded-xl bg-gradient-to-r from-rose-500 via-rose-600 to-amber-500 hover:opacity-95 text-white font-semibold flex items-center justify-center space-x-2 shadow-lg shadow-rose-500/25 active:scale-[0.99] transition-all">
+                    <i class="fa-solid fa-cloud-arrow-down text-lg"></i>
+                    <span>Download Playlist / Track</span>
+                </button>
+
+                <button id="zipBtn" onclick="downloadZip()" 
+                    class="hidden py-4 px-6 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold flex items-center justify-center space-x-2 border border-slate-700 transition-all">
+                    <i class="fa-solid fa-file-zipper text-lg text-amber-400"></i>
+                    <span>Download as ZIP</span>
+                </button>
+            </div>
+
+            <!-- Progress Section (Hidden initially) -->
+            <div id="progressSection" class="hidden space-y-4 pt-4 border-t border-slate-800">
+                <div class="flex items-center justify-between text-xs">
+                    <span id="statusText" class="font-medium text-slate-300 flex items-center gap-2">
+                        <i class="fa-solid fa-spinner fa-spin text-rose-500"></i> Initializing download...
+                    </span>
+                    <span id="percentText" class="font-bold text-rose-400">0%</span>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full h-3 bg-slate-900 rounded-full overflow-hidden p-0.5 border border-slate-800">
+                    <div id="progressBar" class="h-full bg-gradient-to-r from-rose-500 to-amber-400 rounded-full transition-all duration-300 w-0"></div>
+                </div>
+
+                <div class="flex items-center justify-between text-xs text-slate-500 font-mono">
+                    <span id="speedText">Speed: --</span>
+                    <span id="etaText">ETA: --</span>
+                </div>
+
+                <!-- Live Log Viewer -->
+                <div class="space-y-1">
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Terminal Log</span>
+                    <div id="logBox" class="w-full h-44 bg-slate-950 rounded-xl p-3 font-mono text-xs text-slate-400 overflow-y-auto border border-slate-800/80 space-y-1 select-text">
+                        <p class="text-slate-600">// Ready to download...</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Quick Tips for MP3 Players -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-slate-400">
+            <div class="p-4 rounded-xl bg-slate-900/30 border border-slate-800/60 space-y-1">
+                <div class="text-slate-200 font-semibold flex items-center gap-1.5">
+                    <i class="fa-solid fa-sd-card text-rose-400"></i> MicroSD Card Ready
+                </div>
+                <p>Filenames are sanitized so FAT32 and exFAT format memory cards never encounter illegal character errors.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900/30 border border-slate-800/60 space-y-1">
+                <div class="text-slate-200 font-semibold flex items-center gap-1.5">
+                    <i class="fa-solid fa-tag text-amber-400"></i> Universal ID3v2.3
+                </div>
+                <p>Formatted to ID3v2.3 with baseline JPEG album covers so iPods, Walkmans, and vintage players display cleanly.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900/30 border border-slate-800/60 space-y-1">
+                <div class="text-slate-200 font-semibold flex items-center gap-1.5">
+                    <i class="fa-solid fa-mobile-screen-button text-emerald-400"></i> iOS & Android
+                </div>
+                <p>Access this web page from your phone's browser and tap "Download as ZIP" to export directly to mobile Files.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-900 py-6 text-center text-xs text-slate-600">
+        <p>TuneSync MP3 Downloader &middot; Open-Source for Hardware Players & MicroSD Cards</p>
+    </footer>
+
+    <!-- Frontend Script -->
+    <script>
+        let pollInterval = null;
+
+        async function startDownload() {
+            const url = document.getElementById('urlInput').value.trim();
+            if (!url) {
+                alert('Please enter a YouTube or YouTube Music playlist/video URL.');
+                return;
+            }
+
+            const bitrate = document.getElementById('bitrateSelect').value;
+            const folder_name = document.getElementById('folderInput').value.trim() || 'My Music';
+            const clean_names = document.getElementById('cleanTitlesCheck').checked;
+            const embed_art = document.getElementById('embedArtCheck').checked;
+
+            const btn = document.getElementById('downloadBtn');
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            document.getElementById('progressSection').classList.remove('hidden');
+            document.getElementById('zipBtn').classList.add('hidden');
+            document.getElementById('logBox').innerHTML = '<p class="text-amber-400">> Starting process...</p>';
+
+            try {
+                const response = await fetch('/api/download', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url, bitrate, folder_name, clean_names, embed_art })
+                });
+
+                const data = await response.json();
+                if (!data.started) {
+                    alert('Error starting download: ' + (data.error || 'Unknown error'));
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    return;
+                }
+
+                // Start polling status
+                if (pollInterval) clearInterval(pollInterval);
+                pollInterval = setInterval(checkStatus, 1000);
+
+            } catch (err) {
+                alert('Network error: ' + err.message);
+                btn.disabled = false;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        async function checkStatus() {
+            try {
+                const res = await fetch('/api/status');
+                const data = await res.json();
+
+                const progressBar = document.getElementById('progressBar');
+                const percentText = document.getElementById('percentText');
+                const statusText = document.getElementById('statusText');
+                const speedText = document.getElementById('speedText');
+                const etaText = document.getElementById('etaText');
+                const logBox = document.getElementById('logBox');
+
+                if (data.progress) {
+                    const pct = data.progress.percent || 0;
+                    progressBar.style.width = pct + '%';
+                    percentText.innerText = pct + '%';
+                    speedText.innerText = 'Speed: ' + (data.progress.speed_str || '--');
+                    etaText.innerText = 'ETA: ' + (data.progress.eta_str || '--');
+                }
+
+                if (data.logs && data.logs.length > 0) {
+                    logBox.innerHTML = data.logs.map(line => `<p class="leading-relaxed">${escapeHtml(line)}</p>`).join('');
+                    logBox.scrollTop = logBox.scrollHeight;
+                }
+
+                if (data.status === 'running') {
+                    statusText.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-rose-500"></i> ' + (data.current_track || 'Downloading tracks...');
+                } else if (data.status === 'completed') {
+                    clearInterval(pollInterval);
+                    statusText.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400"></i> Download complete!';
+                    progressBar.style.width = '100%';
+                    percentText.innerText = '100%';
+
+                    const btn = document.getElementById('downloadBtn');
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+                    document.getElementById('zipBtn').classList.remove('hidden');
+                } else if (data.status === 'error') {
+                    clearInterval(pollInterval);
+                    statusText.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-rose-500"></i> Error: ' + (data.error || 'Failed');
+                    const btn = document.getElementById('downloadBtn');
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                }
+
+            } catch (e) {
+                console.error("Status poll error", e);
+            }
+        }
+
+        function downloadZip() {
+            window.location.href = '/api/zip';
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
