@@ -3,32 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TuneSync - MP3 Player Downloader</title>
+    <title>TuneSync — MP3 Player Downloader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#18181A',
+                        side: '#1E1E21',
+                        panel: '#232326',
+                        raised: '#2C2C30',
+                        line: '#36363B',
+                        lineSoft: '#2A2A2E',
+                        dim: '#85858D',
+                        textSecondary: '#BFBFC5',
+                        textPrimary: '#F4F4F6',
+                        accent: '#E05656',
+                        sage: '#5BA887'
+                    },
+                    fontFamily: {
+                        serif: ['Newsreader', 'Georgia', 'serif'],
+                        sans: ['Figtree', 'system-ui', '-apple-system', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .glass { background: rgba(26, 27, 38, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        body {
+            background-color: #18181A;
+            color: #BFBFC5;
+            font-family: 'Figtree', sans-serif;
+            font-size: 15px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, .font-serif {
+            font-family: 'Newsreader', Georgia, serif;
+        }
+        ::selection {
+            background: #F4F4F6;
+            color: #18181A;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #18181A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #36363B;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4E4E56;
+        }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-rose-500 selection:text-white">
+<body class="bg-[#18181A] text-[#BFBFC5] min-h-screen flex flex-col justify-between selection:bg-[#F4F4F6] selection:text-[#18181A]">
 
-    <!-- Header -->
-    <header class="border-b border-slate-800/80 bg-slate-900/40 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+    <!-- Top Header -->
+    <header class="border-b border-[#2A2A2E] bg-[#18181A]/85 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3.5 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 to-amber-500 flex items-center justify-center shadow-lg shadow-rose-500/20">
-                    <i class="fa-solid fa-music text-white text-lg"></i>
+                <div class="w-8 h-8 rounded-lg bg-[#232326] border border-[#36363B] flex items-center justify-center text-[#F4F4F6] shadow-sm">
+                    <i class="fa-solid fa-music text-xs"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg leading-tight tracking-tight">TuneSync MP3</h1>
-                    <p class="text-xs text-slate-400">MicroSD & MP3 Player Ready</p>
+                    <h1 class="font-serif font-medium text-lg leading-tight tracking-tight text-[#F4F4F6]">TuneSync</h1>
+                    <p class="text-[11px] text-[#85858D]">MicroSD & Hardware MP3 Player Downloader</p>
                 </div>
             </div>
             <div class="flex items-center space-x-2 text-xs">
-                <span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700 flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Ready
+                <span class="px-2.5 py-1 rounded-lg bg-[#232326] text-[#BFBFC5] border border-[#36363B] flex items-center gap-1.5 font-mono text-[11px]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#5BA887]"></span> Ready
                 </span>
             </div>
         </div>
@@ -38,73 +94,73 @@
     <main class="max-w-4xl mx-auto px-4 py-8 flex-1 w-full space-y-6">
 
         <!-- Banner / Hero -->
-        <div class="text-center space-y-2 py-4">
-            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+        <div class="text-center space-y-2 py-3">
+            <h2 class="text-3xl sm:text-4xl font-serif font-medium tracking-tight text-[#F4F4F6]">
                 YouTube Music to MP3 Player
             </h2>
-            <p class="text-slate-400 max-w-xl mx-auto text-sm sm:text-base">
-                Download playlists and tracks with clean titles, embedded JPEG album art, and ID3v2.3 tags — perfectly optimized for FAT32 / exFAT microSD cards.
+            <p class="text-[#85858D] max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
+                Download playlists and tracks with clean titles, embedded JPEG album art, and ID3v2.3 tags — formatted cleanly for FAT32 and exFAT memory cards.
             </p>
         </div>
 
         <!-- Download Card -->
-        <div class="glass rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
+        <div class="bg-[#232326] border border-[#36363B] rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
             
             <!-- URL Input -->
             <div class="space-y-2">
-                <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                <label class="block text-xs font-medium text-[#85858D] uppercase tracking-wider">
                     YouTube or YouTube Music URL
                 </label>
                 <div class="relative flex items-center">
-                    <span class="absolute left-4 text-slate-400">
-                        <i class="fa-brands fa-youtube text-lg"></i>
+                    <span class="absolute left-4 text-[#85858D]">
+                        <i class="fa-brands fa-youtube text-base"></i>
                     </span>
                     <input type="url" id="urlInput" placeholder="https://music.youtube.com/playlist?list=..." 
-                        class="w-full pl-12 pr-4 py-3.5 bg-slate-900/90 border border-slate-700/80 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500 transition-all text-sm font-medium">
+                        class="w-full pl-11 pr-4 py-3 bg-[#1E1E21] border border-[#36363B] rounded-xl text-[#F4F4F6] placeholder-[#6A6A72] focus:outline-none focus:border-[#47474E] transition-colors text-sm font-sans">
                 </div>
             </div>
 
             <!-- Settings Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
                 
                 <!-- Bitrate Selection -->
                 <div class="space-y-2">
-                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                    <label class="block text-xs font-medium text-[#85858D] uppercase tracking-wider">
                         Audio Quality
                     </label>
-                    <select id="bitrateSelect" class="w-full px-4 py-3 bg-slate-900/90 border border-slate-700/80 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500 transition-all text-sm font-medium">
-                        <option value="192k" selected>192 kbps (Recommended - Balanced & 40% Smaller)</option>
+                    <select id="bitrateSelect" class="w-full px-4 py-2.5 bg-[#1E1E21] border border-[#36363B] rounded-xl text-[#F4F4F6] focus:outline-none focus:border-[#47474E] transition-colors text-sm font-sans">
+                        <option value="192k" selected>192 kbps (Recommended — balanced & saves ~40% space)</option>
                         <option value="320k">320 kbps (Maximum MP3 Bitrate)</option>
-                        <option value="160k">160 kbps (Compact - 50% Space Savings)</option>
+                        <option value="160k">160 kbps (Compact — 50% space savings)</option>
                         <option value="128k">128 kbps (Ultra Light)</option>
                     </select>
                 </div>
 
                 <!-- Folder Name -->
                 <div class="space-y-2">
-                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                    <label class="block text-xs font-medium text-[#85858D] uppercase tracking-wider">
                         Output Folder
                     </label>
                     <input type="text" id="folderInput" value="My Music" placeholder="Folder name"
-                        class="w-full px-4 py-3 bg-slate-900/90 border border-slate-700/80 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-rose-500/50 focus:border-rose-500 transition-all text-sm font-medium">
+                        class="w-full px-4 py-2.5 bg-[#1E1E21] border border-[#36363B] rounded-xl text-[#F4F4F6] placeholder-[#6A6A72] focus:outline-none focus:border-[#47474E] transition-colors text-sm font-sans">
                 </div>
             </div>
 
             <!-- Features Checkboxes -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                <label class="flex items-center space-x-3 p-3 rounded-xl bg-slate-900/40 border border-slate-800 cursor-pointer hover:bg-slate-900/80 transition-colors">
-                    <input type="checkbox" id="cleanTitlesCheck" checked class="w-4 h-4 text-rose-500 rounded bg-slate-800 border-slate-600 focus:ring-rose-500">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <label class="flex items-center space-x-3 p-3 rounded-xl bg-[#1E1E21] border border-[#2A2A2E] cursor-pointer hover:border-[#36363B] transition-colors">
+                    <input type="checkbox" id="cleanTitlesCheck" checked class="w-4 h-4 rounded bg-[#232326] border-[#36363B] accent-[#5BA887]">
                     <div class="text-xs">
-                        <span class="font-semibold block text-slate-200">Clean Song Titles</span>
-                        <span class="text-slate-400">Strips video clutter like (Official Video)</span>
+                        <span class="font-medium block text-[#F4F4F6]">Clean Song Titles</span>
+                        <span class="text-[#85858D]">Strips video noise like (Official Video) and [HD]</span>
                     </div>
                 </label>
 
-                <label class="flex items-center space-x-3 p-3 rounded-xl bg-slate-900/40 border border-slate-800 cursor-pointer hover:bg-slate-900/80 transition-colors">
-                    <input type="checkbox" id="embedArtCheck" checked class="w-4 h-4 text-rose-500 rounded bg-slate-800 border-slate-600 focus:ring-rose-500">
+                <label class="flex items-center space-x-3 p-3 rounded-xl bg-[#1E1E21] border border-[#2A2A2E] cursor-pointer hover:border-[#36363B] transition-colors">
+                    <input type="checkbox" id="embedArtCheck" checked class="w-4 h-4 rounded bg-[#232326] border-[#36363B] accent-[#5BA887]">
                     <div class="text-xs">
-                        <span class="font-semibold block text-slate-200">Embed JPEG Cover Art</span>
-                        <span class="text-slate-400">Baseline JPEG + ID3v2.3 tags</span>
+                        <span class="font-medium block text-[#F4F4F6]">Embed JPEG Cover Art</span>
+                        <span class="text-[#85858D]">Baseline JPEG with strict ID3v2.3 tags</span>
                     </div>
                 </label>
             </div>
@@ -112,42 +168,42 @@
             <!-- Action Buttons -->
             <div class="pt-2 flex flex-col sm:flex-row gap-3">
                 <button id="downloadBtn" onclick="startDownload()" 
-                    class="flex-1 py-4 px-6 rounded-xl bg-gradient-to-r from-rose-500 via-rose-600 to-amber-500 hover:opacity-95 text-white font-semibold flex items-center justify-center space-x-2 shadow-lg shadow-rose-500/25 active:scale-[0.99] transition-all">
-                    <i class="fa-solid fa-cloud-arrow-down text-lg"></i>
+                    class="flex-1 py-3 px-6 rounded-xl bg-[#2C2C30] hover:bg-[#36363B] text-[#F4F4F6] font-medium text-sm flex items-center justify-center space-x-2 border border-[#36363B] shadow-sm transition-all">
+                    <i class="fa-solid fa-cloud-arrow-down text-base text-[#BFBFC5]"></i>
                     <span>Download Playlist / Track</span>
                 </button>
 
                 <button id="zipBtn" onclick="downloadZip()" 
-                    class="hidden py-4 px-6 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold flex items-center justify-center space-x-2 border border-slate-700 transition-all">
-                    <i class="fa-solid fa-file-zipper text-lg text-amber-400"></i>
+                    class="hidden py-3 px-6 rounded-xl bg-[#5BA887]/15 hover:bg-[#5BA887]/25 text-[#5BA887] font-medium text-sm flex items-center justify-center space-x-2 border border-[#5BA887]/30 transition-all">
+                    <i class="fa-solid fa-file-zipper text-base"></i>
                     <span>Download as ZIP</span>
                 </button>
             </div>
 
             <!-- Progress Section (Hidden initially) -->
-            <div id="progressSection" class="hidden space-y-4 pt-4 border-t border-slate-800">
+            <div id="progressSection" class="hidden space-y-4 pt-4 border-t border-[#2A2A2E]">
                 <div class="flex items-center justify-between text-xs">
-                    <span id="statusText" class="font-medium text-slate-300 flex items-center gap-2">
-                        <i class="fa-solid fa-spinner fa-spin text-rose-500"></i> Initializing download...
+                    <span id="statusText" class="font-medium text-[#BFBFC5] flex items-center gap-2">
+                        <i class="fa-solid fa-spinner fa-spin text-[#85858D]"></i> Initializing download...
                     </span>
-                    <span id="percentText" class="font-bold text-rose-400">0%</span>
+                    <span id="percentText" class="font-mono text-[#F4F4F6] font-medium">0%</span>
                 </div>
 
                 <!-- Progress Bar -->
-                <div class="w-full h-3 bg-slate-900 rounded-full overflow-hidden p-0.5 border border-slate-800">
-                    <div id="progressBar" class="h-full bg-gradient-to-r from-rose-500 to-amber-400 rounded-full transition-all duration-300 w-0"></div>
+                <div class="w-full h-2 bg-[#1E1E21] rounded-full overflow-hidden p-0.5 border border-[#2A2A2E]">
+                    <div id="progressBar" class="h-full bg-[#F4F4F6] rounded-full transition-all duration-300 w-0"></div>
                 </div>
 
-                <div class="flex items-center justify-between text-xs text-slate-500 font-mono">
+                <div class="flex items-center justify-between text-xs text-[#85858D] font-mono">
                     <span id="speedText">Speed: --</span>
                     <span id="etaText">ETA: --</span>
                 </div>
 
                 <!-- Live Log Viewer -->
                 <div class="space-y-1">
-                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Terminal Log</span>
-                    <div id="logBox" class="w-full h-44 bg-slate-950 rounded-xl p-3 font-mono text-xs text-slate-400 overflow-y-auto border border-slate-800/80 space-y-1 select-text">
-                        <p class="text-slate-600">// Ready to download...</p>
+                    <span class="text-[11px] font-medium text-[#85858D] uppercase tracking-wider block">Terminal Log</span>
+                    <div id="logBox" class="w-full h-44 bg-[#18181A] rounded-xl p-3 font-mono text-xs text-[#85858D] overflow-y-auto border border-[#2A2A2E] space-y-1 select-text">
+                        <p class="text-[#6A6A72]">// Ready to download...</p>
                     </div>
                 </div>
             </div>
@@ -155,32 +211,32 @@
         </div>
 
         <!-- Quick Tips for MP3 Players -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-slate-400">
-            <div class="p-4 rounded-xl bg-slate-900/30 border border-slate-800/60 space-y-1">
-                <div class="text-slate-200 font-semibold flex items-center gap-1.5">
-                    <i class="fa-solid fa-sd-card text-rose-400"></i> MicroSD Card Ready
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-[#85858D]">
+            <div class="p-4 rounded-xl bg-[#1E1E21] border border-[#2A2A2E] space-y-1">
+                <div class="text-[#F4F4F6] font-medium flex items-center gap-1.5">
+                    <i class="fa-solid fa-sd-card text-[#85858D]"></i> MicroSD Card Ready
                 </div>
                 <p>Filenames are sanitized so FAT32 and exFAT format memory cards never encounter illegal character errors.</p>
             </div>
-            <div class="p-4 rounded-xl bg-slate-900/30 border border-slate-800/60 space-y-1">
-                <div class="text-slate-200 font-semibold flex items-center gap-1.5">
-                    <i class="fa-solid fa-tag text-amber-400"></i> Universal ID3v2.3
+            <div class="p-4 rounded-xl bg-[#1E1E21] border border-[#2A2A2E] space-y-1">
+                <div class="text-[#F4F4F6] font-medium flex items-center gap-1.5">
+                    <i class="fa-solid fa-tag text-[#85858D]"></i> Universal ID3v2.3
                 </div>
-                <p>Formatted to ID3v2.3 with baseline JPEG album covers so iPods, Walkmans, and vintage players display cleanly.</p>
+                <p>Formatted with standard ID3v2.3 tags and baseline JPEG covers for vintage iPods, Walkmans, and car stereos.</p>
             </div>
-            <div class="p-4 rounded-xl bg-slate-900/30 border border-slate-800/60 space-y-1">
-                <div class="text-slate-200 font-semibold flex items-center gap-1.5">
-                    <i class="fa-solid fa-mobile-screen-button text-emerald-400"></i> iOS & Android
+            <div class="p-4 rounded-xl bg-[#1E1E21] border border-[#2A2A2E] space-y-1">
+                <div class="text-[#F4F4F6] font-medium flex items-center gap-1.5">
+                    <i class="fa-solid fa-mobile-screen-button text-[#85858D]"></i> Mobile Access
                 </div>
-                <p>Access this web page from your phone's browser and tap "Download as ZIP" to export directly to mobile Files.</p>
+                <p>Open this page on your local Wi-Fi from your phone's browser and tap "Download as ZIP" to export directly.</p>
             </div>
         </div>
 
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-slate-900 py-6 text-center text-xs text-slate-600">
-        <p>TuneSync MP3 Downloader &middot; Open-Source for Hardware Players & MicroSD Cards</p>
+    <footer class="border-t border-[#2A2A2E] py-5 text-center text-xs text-[#6A6A72]">
+        <p>TuneSync MP3 Downloader &middot; Formatted for Portable Hardware & MicroSD Cards</p>
     </footer>
 
     <!-- Frontend Script -->
@@ -205,7 +261,7 @@
 
             document.getElementById('progressSection').classList.remove('hidden');
             document.getElementById('zipBtn').classList.add('hidden');
-            document.getElementById('logBox').innerHTML = '<p class="text-amber-400">> Starting process...</p>';
+            document.getElementById('logBox').innerHTML = '<p class="text-[#BFBFC5]">> Starting process...</p>';
 
             try {
                 const response = await fetch('/api/download', {
@@ -259,10 +315,10 @@
                 }
 
                 if (data.status === 'running') {
-                    statusText.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-rose-500"></i> ' + (data.current_track || 'Downloading tracks...');
+                    statusText.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-[#85858D]"></i> ' + (data.current_track || 'Downloading tracks...');
                 } else if (data.status === 'completed') {
                     clearInterval(pollInterval);
-                    statusText.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400"></i> Download complete!';
+                    statusText.innerHTML = '<i class="fa-solid fa-circle-check text-[#5BA887]"></i> Download complete!';
                     progressBar.style.width = '100%';
                     percentText.innerText = '100%';
 
@@ -273,7 +329,7 @@
                     document.getElementById('zipBtn').classList.remove('hidden');
                 } else if (data.status === 'error') {
                     clearInterval(pollInterval);
-                    statusText.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-rose-500"></i> Error: ' + (data.error || 'Failed');
+                    statusText.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-[#E05656]"></i> Error: ' + (data.error || 'Failed');
                     const btn = document.getElementById('downloadBtn');
                     btn.disabled = false;
                     btn.classList.remove('opacity-50', 'cursor-not-allowed');
