@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TuneSync — MP3 Player Downloader</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -14,23 +11,27 @@
             darkMode: 'class',
             theme: {
                 extend: {
-                    colors: {
-                        bg: '#18181A',
-                        side: '#1E1E21',
-                        panel: '#232326',
-                        raised: '#2C2C30',
-                        line: '#36363B',
-                        lineSoft: '#2A2A2E',
-                        dim: '#85858D',
-                        textSecondary: '#BFBFC5',
-                        textPrimary: '#F4F4F6',
-                        accent: '#E05656',
-                        sage: '#5BA887'
-                    },
                     fontFamily: {
-                        serif: ['Newsreader', 'Georgia', 'serif'],
-                        sans: ['Figtree', 'system-ui', '-apple-system', 'sans-serif'],
-                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'monospace']
+                        sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', '"Helvetica Neue"', 'sans-serif'],
+                        mono: ['"SF Mono"', 'SFMono-Regular', 'ui-monospace', 'Menlo', 'monospace']
+                    },
+                    colors: {
+                        apple: {
+                            black: '#000000',
+                            surface: 'rgba(255, 255, 255, 0.04)',
+                            surfaceHover: 'rgba(255, 255, 255, 0.08)',
+                            raised: 'rgba(255, 255, 255, 0.12)',
+                            border: 'rgba(255, 255, 255, 0.10)',
+                            borderSubtle: 'rgba(255, 255, 255, 0.18)',
+                            text: '#FFFFFF',
+                            secondary: 'rgba(255, 255, 255, 0.65)',
+                            muted: 'rgba(255, 255, 255, 0.40)',
+                        }
+                    },
+                    boxShadow: {
+                        'apple-glass': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 8px 32px 0 rgba(0, 0, 0, 0.45)',
+                        'apple-card': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 4px 20px rgba(0, 0, 0, 0.35)',
+                        'apple-active': '0 2px 8px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.15)',
                     }
                 }
             }
@@ -38,85 +39,98 @@
     </script>
     <style>
         body {
-            background-color: #18181A;
-            color: #BFBFC5;
-            font-family: 'Figtree', sans-serif;
-            font-size: 15px;
-            line-height: 1.6;
+            background-color: #000000;
+            color: rgba(255, 255, 255, 0.70);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+            font-size: 14.5px;
+            line-height: 1.55;
             -webkit-font-smoothing: antialiased;
         }
-        h1, h2, h3, .font-serif {
-            font-family: 'Newsreader', Georgia, serif;
-        }
         ::selection {
-            background: #F4F4F6;
-            color: #18181A;
+            background: #FFFFFF;
+            color: #000000;
+        }
+        .apple-press {
+            transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .apple-press:active {
+            transform: scale(0.97);
         }
         ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
         }
         ::-webkit-scrollbar-track {
-            background: #18181A;
+            background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-            background: #36363B;
-            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.18);
+            border-radius: 9999px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #4E4E56;
+            background: rgba(255, 255, 255, 0.35);
         }
     </style>
 </head>
-<body class="bg-[#18181A] text-[#BFBFC5] min-h-screen flex flex-col justify-between selection:bg-[#F4F4F6] selection:text-[#18181A]">
+<body class="bg-black text-white/80 min-h-screen flex flex-col justify-between selection:bg-white selection:text-black">
 
-    <!-- Top Header -->
-    <header class="border-b border-[#2A2A2E] bg-[#18181A]/85 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-4xl mx-auto px-4 py-3.5 flex items-center justify-between">
+    <!-- macOS Frosted Navigation Header -->
+    <header class="border-b border-white/[0.08] bg-black/65 backdrop-blur-2xl sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 rounded-lg bg-[#232326] border border-[#36363B] flex items-center justify-center text-[#F4F4F6] shadow-sm">
-                    <i class="fa-solid fa-music text-xs"></i>
+                <div class="hidden sm:flex items-center space-x-1.5 opacity-60 mr-1">
+                    <span class="w-2.5 h-2.5 rounded-full bg-white/20 border border-white/30"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-white/20 border border-white/30"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-white/20 border border-white/30"></span>
+                </div>
+                <div class="w-7 h-7 rounded-lg bg-white text-black flex items-center justify-center font-bold text-xs shadow-sm">
+                    <i class="fa-solid fa-music"></i>
                 </div>
                 <div>
-                    <h1 class="font-serif font-medium text-lg leading-tight tracking-tight text-[#F4F4F6]">TuneSync</h1>
-                    <p class="text-[11px] text-[#85858D]">MicroSD & Hardware MP3 Player Downloader</p>
+                    <div class="flex items-center gap-2">
+                        <span class="font-semibold text-sm tracking-tight text-white">TuneSync</span>
+                        <span class="px-1.5 py-0.5 rounded text-[10px] font-mono bg-white/10 text-white/70 border border-white/10">SWIFT</span>
+                    </div>
                 </div>
             </div>
             <div class="flex items-center space-x-2 text-xs">
-                <span class="px-2.5 py-1 rounded-lg bg-[#232326] text-[#BFBFC5] border border-[#36363B] flex items-center gap-1.5 font-mono text-[11px]">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#5BA887]"></span> Ready
+                <span class="px-3 py-1 rounded-full bg-white/[0.06] text-white/80 border border-white/[0.12] flex items-center gap-1.5 font-mono text-[11px]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_6px_rgba(255,255,255,0.8)]"></span> Ready
                 </span>
             </div>
         </div>
     </header>
 
     <!-- Main Container -->
-    <main class="max-w-4xl mx-auto px-4 py-8 flex-1 w-full space-y-6">
+    <main class="max-w-4xl mx-auto px-4 py-10 flex-1 w-full space-y-6">
 
         <!-- Banner / Hero -->
-        <div class="text-center space-y-2 py-3">
-            <h2 class="text-3xl sm:text-4xl font-serif font-medium tracking-tight text-[#F4F4F6]">
+        <div class="text-center space-y-2 py-2">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/[0.12] bg-white/[0.04] text-[11px] font-mono text-white/70 mb-1">
+                FAT32 · ID3v2.3 · Baseline JPEG
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">
                 YouTube Music to MP3 Player
             </h2>
-            <p class="text-[#85858D] max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
-                Download playlists and tracks with clean titles, embedded JPEG album art, and ID3v2.3 tags — formatted cleanly for FAT32 and exFAT memory cards.
+            <p class="text-white/60 max-w-xl mx-auto text-xs sm:text-sm leading-relaxed">
+                Download playlists and tracks with clean tags, volume balancing, and embedded artwork formatted reliably for standalone hardware MP3 players and flash cards.
             </p>
         </div>
 
         <!-- Download Card -->
-        <div class="bg-[#232326] border border-[#36363B] rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
+        <div class="bg-white/[0.04] backdrop-blur-2xl border border-white/[0.10] rounded-2xl p-6 sm:p-8 shadow-apple-card space-y-6">
             
             <!-- URL Input -->
             <div class="space-y-2">
-                <label class="block text-xs font-medium text-[#85858D] uppercase tracking-wider">
+                <label class="block text-xs font-mono font-medium text-white/50 uppercase tracking-wider">
                     YouTube or YouTube Music URL
                 </label>
                 <div class="relative flex items-center">
-                    <span class="absolute left-4 text-[#85858D]">
+                    <span class="absolute left-4 text-white/40">
                         <i class="fa-brands fa-youtube text-base"></i>
                     </span>
                     <input type="url" id="urlInput" placeholder="https://music.youtube.com/playlist?list=..." 
-                        class="w-full pl-11 pr-4 py-3 bg-[#1E1E21] border border-[#36363B] rounded-xl text-[#F4F4F6] placeholder-[#6A6A72] focus:outline-none focus:border-[#47474E] transition-colors text-sm font-sans">
+                        class="w-full pl-11 pr-4 py-3 bg-black/50 border border-white/[0.12] rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-white/50 transition-colors text-sm font-sans">
                 </div>
             </div>
 
@@ -125,11 +139,11 @@
                 
                 <!-- Bitrate Selection -->
                 <div class="space-y-2">
-                    <label class="block text-xs font-medium text-[#85858D] uppercase tracking-wider">
+                    <label class="block text-xs font-mono font-medium text-white/50 uppercase tracking-wider">
                         Audio Quality
                     </label>
-                    <select id="bitrateSelect" class="w-full px-4 py-2.5 bg-[#1E1E21] border border-[#36363B] rounded-xl text-[#F4F4F6] focus:outline-none focus:border-[#47474E] transition-colors text-sm font-sans">
-                        <option value="192k" selected>192 kbps (Recommended — balanced & saves ~40% space)</option>
+                    <select id="bitrateSelect" class="w-full px-4 py-2.5 bg-black/50 border border-white/[0.12] rounded-xl text-white focus:outline-none focus:border-white/50 transition-colors text-sm font-sans">
+                        <option value="192k" selected>192 kbps (Balanced — saves ~40% space)</option>
                         <option value="320k">320 kbps (Maximum MP3 Bitrate)</option>
                         <option value="160k">160 kbps (Compact — 50% space savings)</option>
                         <option value="128k">128 kbps (Ultra Light)</option>
@@ -138,29 +152,29 @@
 
                 <!-- Folder Name -->
                 <div class="space-y-2">
-                    <label class="block text-xs font-medium text-[#85858D] uppercase tracking-wider">
+                    <label class="block text-xs font-mono font-medium text-white/50 uppercase tracking-wider">
                         Output Folder
                     </label>
                     <input type="text" id="folderInput" value="My Music" placeholder="Folder name"
-                        class="w-full px-4 py-2.5 bg-[#1E1E21] border border-[#36363B] rounded-xl text-[#F4F4F6] placeholder-[#6A6A72] focus:outline-none focus:border-[#47474E] transition-colors text-sm font-sans">
+                        class="w-full px-4 py-2.5 bg-black/50 border border-white/[0.12] rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-white/50 transition-colors text-sm font-sans">
                 </div>
             </div>
 
             <!-- Features Checkboxes -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                <label class="flex items-center space-x-3 p-3 rounded-xl bg-[#1E1E21] border border-[#2A2A2E] cursor-pointer hover:border-[#36363B] transition-colors">
-                    <input type="checkbox" id="cleanTitlesCheck" checked class="w-4 h-4 rounded bg-[#232326] border-[#36363B] accent-[#5BA887]">
+                <label class="flex items-center space-x-3 p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.08] cursor-pointer hover:border-white/[0.18] transition-colors">
+                    <input type="checkbox" id="cleanTitlesCheck" checked class="w-4 h-4 rounded bg-black border-white/20 accent-white">
                     <div class="text-xs">
-                        <span class="font-medium block text-[#F4F4F6]">Clean Song Titles</span>
-                        <span class="text-[#85858D]">Strips video noise like (Official Video) and [HD]</span>
+                        <span class="font-medium block text-white">Clean Song Titles</span>
+                        <span class="text-white/50">Strips video noise like (Official Video) and [HD]</span>
                     </div>
                 </label>
 
-                <label class="flex items-center space-x-3 p-3 rounded-xl bg-[#1E1E21] border border-[#2A2A2E] cursor-pointer hover:border-[#36363B] transition-colors">
-                    <input type="checkbox" id="embedArtCheck" checked class="w-4 h-4 rounded bg-[#232326] border-[#36363B] accent-[#5BA887]">
+                <label class="flex items-center space-x-3 p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.08] cursor-pointer hover:border-white/[0.18] transition-colors">
+                    <input type="checkbox" id="embedArtCheck" checked class="w-4 h-4 rounded bg-black border-white/20 accent-white">
                     <div class="text-xs">
-                        <span class="font-medium block text-[#F4F4F6]">Embed JPEG Cover Art</span>
-                        <span class="text-[#85858D]">Baseline JPEG with strict ID3v2.3 tags</span>
+                        <span class="font-medium block text-white">Embed JPEG Cover Art</span>
+                        <span class="text-white/50">Baseline JPEG with strict ID3v2.3 tags</span>
                     </div>
                 </label>
             </div>
@@ -168,42 +182,42 @@
             <!-- Action Buttons -->
             <div class="pt-2 flex flex-col sm:flex-row gap-3">
                 <button id="downloadBtn" onclick="startDownload()" 
-                    class="flex-1 py-3 px-6 rounded-xl bg-[#2C2C30] hover:bg-[#36363B] text-[#F4F4F6] font-medium text-sm flex items-center justify-center space-x-2 border border-[#36363B] shadow-sm transition-all">
-                    <i class="fa-solid fa-cloud-arrow-down text-base text-[#BFBFC5]"></i>
+                    class="flex-1 py-3 px-6 rounded-xl bg-white text-black font-semibold text-xs shadow-apple-active hover:bg-white/90 flex items-center justify-center space-x-2 transition apple-press">
+                    <i class="fa-solid fa-cloud-arrow-down text-sm"></i>
                     <span>Download Playlist / Track</span>
                 </button>
 
                 <button id="zipBtn" onclick="downloadZip()" 
-                    class="hidden py-3 px-6 rounded-xl bg-[#5BA887]/15 hover:bg-[#5BA887]/25 text-[#5BA887] font-medium text-sm flex items-center justify-center space-x-2 border border-[#5BA887]/30 transition-all">
-                    <i class="fa-solid fa-file-zipper text-base"></i>
+                    class="hidden py-3 px-6 rounded-xl bg-white text-black font-semibold text-xs shadow-apple-active hover:bg-white/90 flex items-center justify-center space-x-2 transition apple-press">
+                    <i class="fa-solid fa-file-zipper text-sm"></i>
                     <span>Download as ZIP</span>
                 </button>
             </div>
 
             <!-- Progress Section (Hidden initially) -->
-            <div id="progressSection" class="hidden space-y-4 pt-4 border-t border-[#2A2A2E]">
+            <div id="progressSection" class="hidden space-y-4 pt-4 border-t border-white/[0.08]">
                 <div class="flex items-center justify-between text-xs">
-                    <span id="statusText" class="font-medium text-[#BFBFC5] flex items-center gap-2">
-                        <i class="fa-solid fa-spinner fa-spin text-[#85858D]"></i> Initializing download...
+                    <span id="statusText" class="font-medium text-white/80 flex items-center gap-2">
+                        <i class="fa-solid fa-spinner fa-spin text-white/50"></i> Initializing download...
                     </span>
-                    <span id="percentText" class="font-mono text-[#F4F4F6] font-medium">0%</span>
+                    <span id="percentText" class="font-mono text-white font-medium">0%</span>
                 </div>
 
                 <!-- Progress Bar -->
-                <div class="w-full h-2 bg-[#1E1E21] rounded-full overflow-hidden p-0.5 border border-[#2A2A2E]">
-                    <div id="progressBar" class="h-full bg-[#F4F4F6] rounded-full transition-all duration-300 w-0"></div>
+                <div class="w-full h-2 bg-white/[0.08] rounded-full overflow-hidden p-0.5 border border-white/[0.10]">
+                    <div id="progressBar" class="h-full bg-white rounded-full transition-all duration-300 w-0"></div>
                 </div>
 
-                <div class="flex items-center justify-between text-xs text-[#85858D] font-mono">
+                <div class="flex items-center justify-between text-xs text-white/40 font-mono">
                     <span id="speedText">Speed: --</span>
                     <span id="etaText">ETA: --</span>
                 </div>
 
                 <!-- Live Log Viewer -->
                 <div class="space-y-1">
-                    <span class="text-[11px] font-medium text-[#85858D] uppercase tracking-wider block">Terminal Log</span>
-                    <div id="logBox" class="w-full h-44 bg-[#18181A] rounded-xl p-3 font-mono text-xs text-[#85858D] overflow-y-auto border border-[#2A2A2E] space-y-1 select-text">
-                        <p class="text-[#6A6A72]">// Ready to download...</p>
+                    <span class="text-[10px] font-mono font-medium text-white/40 uppercase tracking-wider block">Terminal Log</span>
+                    <div id="logBox" class="w-full h-44 bg-black/70 rounded-xl p-3 font-mono text-xs text-white/60 overflow-y-auto border border-white/[0.10] space-y-1 select-text">
+                        <p class="text-white/30">// Ready to download...</p>
                     </div>
                 </div>
             </div>
@@ -211,22 +225,22 @@
         </div>
 
         <!-- Quick Tips for MP3 Players -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-[#85858D]">
-            <div class="p-4 rounded-xl bg-[#1E1E21] border border-[#2A2A2E] space-y-1">
-                <div class="text-[#F4F4F6] font-medium flex items-center gap-1.5">
-                    <i class="fa-solid fa-sd-card text-[#85858D]"></i> MicroSD Card Ready
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-white/50">
+            <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] space-y-1 shadow-apple-card">
+                <div class="text-white font-medium flex items-center gap-1.5">
+                    <i class="fa-solid fa-sd-card text-white/60"></i> MicroSD Card Ready
                 </div>
                 <p>Filenames are sanitized so FAT32 and exFAT format memory cards never encounter illegal character errors.</p>
             </div>
-            <div class="p-4 rounded-xl bg-[#1E1E21] border border-[#2A2A2E] space-y-1">
-                <div class="text-[#F4F4F6] font-medium flex items-center gap-1.5">
-                    <i class="fa-solid fa-tag text-[#85858D]"></i> Universal ID3v2.3
+            <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] space-y-1 shadow-apple-card">
+                <div class="text-white font-medium flex items-center gap-1.5">
+                    <i class="fa-solid fa-tag text-white/60"></i> Universal ID3v2.3
                 </div>
                 <p>Formatted with standard ID3v2.3 tags and baseline JPEG covers for vintage iPods, Walkmans, and car stereos.</p>
             </div>
-            <div class="p-4 rounded-xl bg-[#1E1E21] border border-[#2A2A2E] space-y-1">
-                <div class="text-[#F4F4F6] font-medium flex items-center gap-1.5">
-                    <i class="fa-solid fa-mobile-screen-button text-[#85858D]"></i> Mobile Access
+            <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] space-y-1 shadow-apple-card">
+                <div class="text-white font-medium flex items-center gap-1.5">
+                    <i class="fa-solid fa-mobile-screen-button text-white/60"></i> Mobile Access
                 </div>
                 <p>Open this page on your local Wi-Fi from your phone's browser and tap "Download as ZIP" to export directly.</p>
             </div>
@@ -235,7 +249,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-[#2A2A2E] py-5 text-center text-xs text-[#6A6A72]">
+    <footer class="border-t border-white/[0.08] py-5 text-center text-xs text-white/40 font-mono">
         <p>TuneSync MP3 Downloader &middot; Formatted for Portable Hardware & MicroSD Cards</p>
     </footer>
 
@@ -261,7 +275,7 @@
 
             document.getElementById('progressSection').classList.remove('hidden');
             document.getElementById('zipBtn').classList.add('hidden');
-            document.getElementById('logBox').innerHTML = '<p class="text-[#BFBFC5]">> Starting process...</p>';
+            document.getElementById('logBox').innerHTML = '<p class="text-white/70">> Starting process...</p>';
 
             try {
                 const response = await fetch('/api/download', {
@@ -278,7 +292,6 @@
                     return;
                 }
 
-                // Start polling status
                 if (pollInterval) clearInterval(pollInterval);
                 pollInterval = setInterval(checkStatus, 1000);
 
@@ -315,10 +328,10 @@
                 }
 
                 if (data.status === 'running') {
-                    statusText.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-[#85858D]"></i> ' + (data.current_track || 'Downloading tracks...');
+                    statusText.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-white/50"></i> ' + (data.current_track || 'Downloading tracks...');
                 } else if (data.status === 'completed') {
                     clearInterval(pollInterval);
-                    statusText.innerHTML = '<i class="fa-solid fa-circle-check text-[#5BA887]"></i> Download complete!';
+                    statusText.innerHTML = '<i class="fa-solid fa-circle-check text-white"></i> Download complete!';
                     progressBar.style.width = '100%';
                     percentText.innerText = '100%';
 
@@ -329,7 +342,7 @@
                     document.getElementById('zipBtn').classList.remove('hidden');
                 } else if (data.status === 'error') {
                     clearInterval(pollInterval);
-                    statusText.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-[#E05656]"></i> Error: ' + (data.error || 'Failed');
+                    statusText.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-white"></i> Error: ' + (data.error || 'Failed');
                     const btn = document.getElementById('downloadBtn');
                     btn.disabled = false;
                     btn.classList.remove('opacity-50', 'cursor-not-allowed');
